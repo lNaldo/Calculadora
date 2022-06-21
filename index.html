@@ -44,7 +44,7 @@
             color: rgb(255, 255, 255);
         }
 
-        #resultado {
+        .resultado {
             background-color: white;
             width: 207px;
             height: 30px;
@@ -64,27 +64,23 @@
             <div class="calculadora">
                 <div>
                     <!-- lugar onde vai aparecer os resultados -->
-                    <input type="number" id="idResultado" name="nmResultado">
+                    <input type="number" id="idResultado" class="resultado" name="nmResultado">
                 </div>
                 <div>
                     <div>
                         <!-- Botões da calduladora -->
-                        <input type="button" id="idLimparTudo" name="nmLimparTudo" value="C" class="botao"
-                            onclick="resetar()">
+                        <input type="button" id="idLimparTudo" name="nmLimparTudo" value="C" class="botao" onclick="reset(resetarTudo)">
                         <input type="button" id="idlimpar1" name="nmlimpar1" value="<" class="botao" onclick="limpar()">
-                        <input type="button" id="idDivisao" name="nmDivisao" value="/" class="botao"
-                            onclick="divisao()">
+                        <input type="button" id="idDivisao" name="nmDivisao" value="/" class="botao" onclick="setOperador(operacaoDivisao)">
                         <!-- Botão da operação -->
-                        <input type="button" id="idMultiplicacao" name="nmMultiplicacao" value="x" class="botao"
-                            onclick="setOperador(operacaoMultiplicacao)">
+                        <input type="button" id="idMultiplicacao" name="nmMultiplicacao" value="x" class="botao" onclick="setOperador(operacaoMultiplicacao)">
                     </div>
                     <div>
                         <input type="button" id="idNum7" name="nm7" value="7" class="botao" onclick="inserir('7')">
                         <input type="button" id="idNum8" name="nm8" value="8" class="botao" onclick="inserir('8')">
                         <input type="button" id="idNum9" name="nm9" value="9" class="botao" onclick="inserir('9')">
                         <!-- Botão da operação-->
-                        <input type="button" id="idSubtracao" name="nmSubtracao" value="-" class="botao"
-                            onclick="setOperador(' - ')">
+                        <input type="button" id="idSubtracao" name="nmSubtracao" value="-" class="botao" onclick="setOperador(operacaoSubtracao)">
                         <div>
                         </div>
                         <input type="button" id="idNum4" name="nm4" value="4" class="botao" onclick="inserir('4')">
@@ -105,8 +101,7 @@
                     <div>
                         <input type="button" id="idNum0" name="nm0" value="0" class="botao" onclick="inserir('0')">
                         <input type="button" id="idNum00" name="nm00" value="00" class="botao" onclick="inserir('00')">
-                        <input type="button" id="idNum000" name="nm000" value="000" class="botao"
-                            onclick="inserir('000')">
+                        <input type="button" id="idNum000" name="nm000" value="000" class="botao" onclick="inserir('000')">
                         <input type="button" id="idPonto" name="nmPonto" value="." class="botao" onclick="inserir('.')">
 
 
@@ -124,8 +119,11 @@
             var resultado
             var operacao
             var primeiroNum
-            var operacaoSoma = ' + '
-            var operacaoMultiplicacao = ' * '
+            var operacaoSoma = " + "
+            var operacaoMultiplicacao = " * "
+            var operacaoDivisao = " / "
+            var operacaoSubtracao = " - "
+            var resetarTudo = " c "
 
             function inserir(numEntrada) {
                 if (operacao) {
@@ -163,33 +161,39 @@
             function soma(num1, num2) {
                 return Number(num1) + Number(num2);
             }
+            function divisao(num1, num2) {
+                return Number(num1) / Number(num2);
+                
+            }
+            function subtracao(num1, num2) {
+                return Number(num1) - Number(num2); 
+            }
+            //function reset(resetarTudo) {
+                //return resultado.reset()                
+            //}
 
             function calcular() {
                 if (resultado && primeiroNum) {
                     if (operacao == operacaoMultiplicacao) {
                         resultado = multiplicacao(resultado, primeiroNum)
+                    
                     } else if (operacao == operacaoSoma) {
                         resultado = soma(resultado, primeiroNum)
+                    
+                    } else if (operacao == operacaoDivisao) {
+                        resultado = divisao(resultado, primeiroNum)
+                    
+                    }else if (operacao == operacaoSubtracao) {
+                        resultado = subtracao(resultado, primeiroNum)
+                    }else if (operacao == resetarTudo) {
+                        resultado.reset()                        
                     }
                 }
-                document.getElementById("idResultado").value = resultado 
+                document.getElementById("idResultado").value = resultado
                 primeiroNum = null
                 operacao = null
             }
-
-            function calcularSwitch(num1, num2, operacaoEntrada) {
-                if (num1 && num2 && operacao) {
-                    switch(operacao){
-                        case operacaoSoma:
-                            return soma(num1, num2)
-                        case operacaoMultiplicacao:
-                            return multiplicacao(num1, num2)
-                        default:
-                            console.log('Operacao invalida ', operacao)
-                    }
-                }
-            }
-
+                      
         </SCript>
 </body>
 </html>
