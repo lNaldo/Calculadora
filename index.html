@@ -124,6 +124,9 @@
             var operacaoDivisao = " / "
             var operacaoSubtracao = " - "
             var resetarTudo = " c "
+            var excluirUmNumero = " < "
+
+            //Aqui jogamos os numeros digitados dentro de uma variavél, e depois fazer a operação
 
             function inserir(numEntrada) {
                 if (operacao) {
@@ -144,6 +147,8 @@
                     document.getElementById("idResultado").value = resultado
                 }
             }
+
+            //Uma função para capturar qual o valor dos operadores 
 
             function setOperador(operadorEntrada) {
                 if (resultado && primeiroNum){
@@ -168,10 +173,7 @@
             function subtracao(num1, num2) {
                 return Number(num1) - Number(num2); 
             }
-            //function reset(resetarTudo) {
-                //return resultado.reset()                
-            //}
-
+            
             function calcular() {
                 if (resultado && primeiroNum) {
                     if (operacao == operacaoMultiplicacao) {
@@ -189,10 +191,28 @@
                         resultado.reset()                        
                     }
                 }
+                // função para recetar o input para iniciar outra operação
+
                 document.getElementById("idResultado").value = resultado
                 primeiroNum = null
                 operacao = null
-            }
+                }
+                function reset() {
+                    document.getElementById("idResultado").value = ''
+                    primeiroNum = null
+                    operacao = null
+                    resultado = null
+                }
+                document.getElementById("idResultado").value = resultado
+                primeiroNum = null
+                operacao = null
+                
+                function limpar() {
+                    let tela = String(document.getElementById("idResultado").value);
+                    document.getElementById("idResultado").value = tela.substring(0, tela.length - 1);
+                }
+                
+        
                       
         </SCript>
 </body>
